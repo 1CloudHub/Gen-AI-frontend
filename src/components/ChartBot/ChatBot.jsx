@@ -19,11 +19,8 @@ const ChartBot = () => {
             <Chatbot
               config={config}
               actionProvider={actionProvider}
-              //   messageHistory={loadMessages()}
               messageParser={messageParser}
               messageHandler={true}
-              // chatInputComponent="test"
-              //   saveMessages={saveMessages}
             />
           </div>
         )}
