@@ -10,9 +10,21 @@ import { Icon } from "@iconify/react";
 
 const ChartBot = () => {
   const [showBot, toggleBot] = useState(false);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+
   return (
     <>
       <div className="App">
+        <div style={{ textAlign: "right" }}>
+          <Icon
+            icon="material-symbols:logout"
+            className="logout-btn"
+            onClick={() => handleLogout()}
+          />
+        </div>
         {showBot && (
           <div className="chatbot">
             <Chatbot

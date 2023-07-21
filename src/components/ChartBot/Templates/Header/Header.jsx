@@ -6,7 +6,7 @@ const Header = ({ infoBox, setState }) => {
 
   return (
     <div className="header">
-      <p className="header-text">Conversation with {botName}</p>
+      <p className="header-text">{botName}</p>
     </div>
   );
 };

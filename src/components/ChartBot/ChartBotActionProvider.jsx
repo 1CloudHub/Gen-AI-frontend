@@ -56,7 +56,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
   }
   const promptsLibrary = () => {
     const messages = createChatBotMessage(
-      "Prompts library to open on the left side",
+      "Prompts library is now open. Please select the prompt",
       { widget: "messageParser", withAvatar: true }
     );
     addMessageToBotState(messages);

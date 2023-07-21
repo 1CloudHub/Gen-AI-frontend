@@ -2,12 +2,100 @@
   text-align: center;
   background-image: url("assets/bg_image.png");
   background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  width: 100vw;
   height: 100vh;
 }
-
+.App-bg-color {
+  background-color: #dbe2e9;
+  width: 100vw;
+  height: 100vh;
+}
+.logout-btn {
+  width: 30px;
+  height: 30px;
+  margin: 1rem;
+  background: #141416;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 27px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  cursor: pointer;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.login-container {
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.mar-top-1 {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.login-button {
+  display: flex;
+  justify-content: center;
+  height: 45px;
+  width: 14rem !important;
+}
+.login-button-wrap {
+  display: flex;
+  justify-content: center;
+}
+.login-form {
+  margin-top: 5rem !important;
+  border-radius: 29px;
+  max-width: 300px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 3rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.login-form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  /* transition: background-color 0.3s ease; */
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
 @media (prefers-reduced-motion: no-preference) {
