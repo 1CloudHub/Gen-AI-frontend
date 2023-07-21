@@ -10,7 +10,7 @@ import { Icon } from "@iconify/react";
 
 const ChartBot = () => {
   const [showBot, toggleBot] = useState(false);
-
+console.log("test");
   return (
     <>
       <div className="App">
