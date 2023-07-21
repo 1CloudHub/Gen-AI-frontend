@@ -85,8 +85,115 @@
   transform: translateY(0);
 }
 
-@media (max-width: 750px) {
+/* .button_7 {
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: 100%;
+  margin: 5px 0px;
+} */
+
+.button_7 {
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(0.875rem - 1px) calc(1.5rem - 0px);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: 100%;
+  margin: 5px 0px;
+}
+
+.button_7:hover,
+.button_7:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.button_7:hover {
+  transform: translateY(-1px);
+}
+
+.button_7:active {
+  background-color: #f0f0f1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
+
+@media only screen and (max-width: 768px) and (min-width: 427px) {
   .informationBox {
-    display: none;
+    right: 370px;
+    max-width: 300px;
+  }
+}
+
+@media only screen and (max-width: 426px) and (min-width: 377px) {
+  .informationBox {
+    width: 350px;
+    height: 510px;
+    bottom: 60px;
+    right: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: none;
+  }
+}
+
+@media only screen and (max-width: 376px) and (min-width: 321px) {
+  .informationBox {
+    width: 300px;
+    height: 510px;
+    bottom: 60px;
+    right: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: none;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .informationBox {
+    width: 300px;
+    height: 510px;
+    bottom: 60px;
+    right: 0px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: none;
   }
 }

@@ -84,19 +84,20 @@
   align-items: center;
   justify-content: center;
   padding: 8px 15px;
-  width: 330px;
-  height: 70px;
+  width: 130px;
+  height: 40px;
   border: 1px solid #141416;
   border-radius: 15px;
   color: rgb(0, 0, 0);
   font-size: 12px;
   margin-bottom: 10px;
   /* box-shadow: inset 0px 0px 0px #ff8533; */
-  transition: all 0.5s;
+  transition: border 0.5s;
   cursor: pointer;
 }
 
 .option-item:hover {
+  transition: border 0.5s;
   border: 3px solid #141416;
 }
 
@@ -110,6 +111,27 @@
   height: 15%;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+}
+
+.header-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 15px;
+  width: 130px;
+  height: 40px;
+  border: 1px solid #141416;
+  border-radius: 15px;
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  /* box-shadow: inset 0px 0px 0px #ff8533; */
+  transition: border 0.5s;
+  cursor: pointer;
+}
+
+.header-btn:hover {
+  transition: border 0.5s;
+  border: 3px solid #141416;
 }
 
 .header-text {
@@ -250,5 +272,84 @@
 
   50% {
     opacity: 1;
+  }
+}
+
+/* MEDIA QUERY RESPONSIVE */
+
+/* media query */
+@media only screen and (max-width: 2560px) and (min-width: 2305px) {
+}
+@media only screen and (max-width: 2304px) and (min-width: 2161px) {
+}
+@media only screen and (max-width: 2160px) and (min-width: 1922px) {
+}
+@media only screen and (max-width: 1921px) and (min-width: 1681px) {
+}
+@media only screen and (max-width: 1680px) and (min-width: 1601px) {
+}
+@media only screen and (max-width: 1600px) and (min-width: 1471px) {
+}
+@media only screen and (max-width: 1470px) and (min-width: 1441px) {
+}
+@media only screen and (max-width: 1440px) and (min-width: 1367px) {
+}
+@media only screen and (max-width: 1366px) and (min-width: 1281px) {
+}
+@media only screen and (max-width: 1280px) and (min-width: 1081px) {
+}
+@media only screen and (max-width: 1080px) and (min-width: 1025px) {
+}
+@media only screen and (max-width: 1024px) and (min-width: 769px) {
+}
+@media only screen and (max-width: 768px) and (min-width: 427px) {
+  .chatbot .react-chatbot-kit-chat-container {
+    width: 350px;
+  }
+
+  .header-text {
+    font-size: 12px;
+  }
+
+  .header-btn {
+    width: 120px;
+    font-size: 11px;
+  }
+}
+
+@media only screen and (max-width: 426px) and (min-width: 377px) {
+  .chatbot .react-chatbot-kit-chat-container {
+    width: 350px;
+    bottom: 60px;
+  }
+
+  .chatbutton {
+    width: 40px;
+    height: 40px;
+    bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 376px) and (min-width: 321px) {
+  .chatbot .react-chatbot-kit-chat-container {
+    width: 300px;
+    bottom: 60px;
+  }
+  .chatbutton {
+    width: 40px;
+    height: 40px;
+    bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .chatbot .react-chatbot-kit-chat-container {
+    width: 300px;
+    bottom: 60px;
+  }
+  .chatbutton {
+    width: 40px;
+    height: 40px;
+    bottom: 10px;
   }
 }

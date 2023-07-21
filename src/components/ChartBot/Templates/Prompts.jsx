@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FadeIn } from "react-anim-kit";
 import { ConditionallyRender } from "react-util-kit";
-import {
-  useChatContext,
-  createChatBotMessage,
-  useChatBotState,
-} from "react-chatbot-kit";
+import { useChatContext, createChatBotMessage } from "react-chatbot-kit";
+import { Spin } from "antd";
 // import { ReactComponent as MessageParserOverview } from "../../../../../assets/img/message-parser-overview.svg";
 
 import styles from "./InformationBox/InformationBox.module.css";
@@ -17,14 +14,10 @@ import Loading from "../Loading";
 const Prompts = ({ infoBox, setState }) => {
   const [cloudstatus, setCloudStatus] = useState(true);
   const [promptstatus, setpromptstatus] = useState(false);
-  const [cloudtype, setCloudType] = useState(" ");
+  const [cloudtype, setCloudType] = useState("");
   const [promptslist, setPromptsList] = useState("");
-  const [inputMessage, setInputMessage] = useState("");
+  const [loaderstatus, setLoaderStatus] = useState(false);
   //   const { setState } = useChatContext();
-
-  console.log("cloudstatus: ", cloudstatus);
-  console.log("cloudtype: ", cloudtype);
-  console.log("promptstatus: ", promptstatus);
 
   useEffect(() => {
     setState((state) => ({
@@ -34,16 +27,41 @@ const Prompts = ({ infoBox, setState }) => {
   }, [setState]);
 
   const onclickCloudtype = (type) => {
-    setCloudStatus(false);
-    setCloudType(type);
-    setpromptstatus(true);
+    setLoaderStatus(true);
+    const companyName = "tvs";
+    var myHeaders = new Headers();
+    myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      event_type: "prompts",
+      schema: companyName,
+      cloud: type,
+    });
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    fetch(
+      "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        var data = JSON.parse(result);
+        setCloudStatus(false);
+        setCloudType(type);
+        setpromptstatus(true);
+        setPromptsList(data);
+        setLoaderStatus(false);
+      })
+      .catch((error) => setLoaderStatus(false));
   };
 
   const onclickCloudPrompts = (message) => {
-    setInputMessage(message);
     handleLoader();
     const companyName = "tvs";
-    // console.log(companyName);
     //limit
     var myHeaders = new Headers();
     myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
@@ -56,7 +74,6 @@ const Prompts = ({ infoBox, setState }) => {
       event_type: "credit_check",
       user_name: "demo_user",
       schema: companyName,
-      query: inputMessage,
     });
     var requestOptions = {
       method: "POST",
@@ -233,222 +250,33 @@ const Prompts = ({ infoBox, setState }) => {
         ifTrue={showMessageParserInfoBox}
         show={
           <InformationBox setState={setState}>
-            <h1 className={styles.prompts_title}>Prompts Library</h1>
-            {cloudstatus && (
-              <>
-                {" "}
-                <button
-                  className={styles.button_6}
-                  onClick={() => onclickCloudtype("gcp")}
-                >
-                  GCP
-                </button>
-                <button
-                  className={styles.button_6}
-                  onClick={() => onclickCloudtype("aws")}
-                >
-                  AWS
-                </button>
-              </>
-            )}
-            {promptstatus && (
-              <>
-                {cloudtype === "gcp" ? (
-                  <>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the top 3 resourcename ,recommendations and potential savings that i can save based on my recommendations?"
-                        )
-                      }
-                    >
-                      Give me the top 3 resourcename ,recommendations and
-                      potential savings that i can save based on my
-                      recommendations?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me top 3 applications and its cost by spend for the month june?"
-                        )
-                      }
-                    >
-                      Give me top 3 applications and its cost by spend for the
-                      month june?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the account names which have used compute engine service?"
-                        )
-                      }
-                    >
-                      Give me the account names which have used compute engine
-                      service?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the total spend for the service CloudStorage in TVS-GCP-Prod account for june month?"
-                        )
-                      }
-                    >
-                      Give me the total spend for the service CloudStorage in
-                      TVS-GCP-Prod account for june month?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the total spend for the services other than Cloud Storage in TVS-GCP-Prod account for june month?"
-                        )
-                      }
-                    >
-                      Give me the total spend for the services other than Cloud
-                      Storage in TVS-GCP-Prod account for june month?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the recommendations and potential savings available for my application ERP?"
-                        )
-                      }
-                    >
-                      Give me the recommendations and potential savings
-                      available for my application ERP?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "What are the total cost of productcode Compute Engine by its categories and sort by highest to lowest?"
-                        )
-                      }
-                    >
-                      What are the total cost of productcode Compute Engine by
-                      its categories and sort by highest to lowest?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the total spend for the services other than CloudStorage in TVS-GCP-Prod account for june month?"
-                        )
-                      }
-                    >
-                      Give me the total spend for the services other than
-                      CloudStorage in TVS-GCP-Prod account for june month?
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me top 3 applications and its cost by spend for the month june?"
-                        )
-                      }
-                    >
-                      Give me top 3 applications and its cost by spend for the
-                      month june?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the regions of the application finnone?"
-                        )
-                      }
-                    >
-                      Give me the regions of the application finnone?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the account names which have used AmazonEc2 service?"
-                        )
-                      }
-                    >
-                      give me the account names which have used AmazonEc2
-                      service?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the names of service used in the account fs-prod-business for the month june?"
-                        )
-                      }
-                    >
-                      Give me the names of service used in the account
-                      fs-prod-business for the month june?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the total spend for the service S3 in fs-prod-business account for june month?"
-                        )
-                      }
-                    >
-                      Give me the total spend for the service S3 in
-                      fs-prod-business account for june month?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the total spend for the services other than S3 in fs-prod-business account for june month?"
-                        )
-                      }
-                    >
-                      Give me the total spend for the services other than S3 in
-                      fs-prod-business account for june month?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the recommendations and potential savings available for my application finnone?"
-                        )
-                      }
-                    >
-                      Give me the recommendations and potential savings
-                      available for my application finnone?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "Give me the top 3 resourcename ,recommendations based on potential savings for the month may?"
-                        )
-                      }
-                    >
-                      Give me the top 3 resourcename ,recommendations based on
-                      potential savings for the month may?
-                    </button>
-                    <button
-                      className={styles.button_6}
-                      onClick={() =>
-                        onclickCloudPrompts(
-                          "What are the total cost of productcode Amazon EC2 by its categories and sort by highest to lowest?"
-                        )
-                      }
-                    >
-                      What are the total cost of productcode Amazon EC2 by its
-                      categories and sort by highest to lowest?
-                    </button>
-                  </>
-                )}
-              </>
-            )}
+            <Spin spinning={loaderstatus}>
+              <h1 className={styles.prompts_title}>Prompts Library</h1>
+              {cloudstatus && (
+                <>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCloudtype("gcp")}
+                  >
+                    GCP
+                  </button>
+                </>
+              )}
+              {promptstatus && (
+                <>
+                  {promptslist.map((data) => (
+                    <>
+                      <button
+                        className={styles.button_7}
+                        onClick={() => onclickCloudPrompts(data.prompts)}
+                      >
+                        {data.prompts}
+                      </button>
+                    </>
+                  ))}
+                </>
+              )}
+            </Spin>
           </InformationBox>
         }
       />
