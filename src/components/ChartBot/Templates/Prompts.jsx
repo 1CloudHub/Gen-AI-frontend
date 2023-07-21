@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FadeIn } from "react-anim-kit";
 import { ConditionallyRender } from "react-util-kit";
-import { useChatContext, createChatBotMessage } from "react-chatbot-kit";
+import {
+  useChatContext,
+  createChatBotMessage,
+  useChatBotState,
+} from "react-chatbot-kit";
 // import { ReactComponent as MessageParserOverview } from "../../../../../assets/img/message-parser-overview.svg";
 
 import styles from "./InformationBox/InformationBox.module.css";
@@ -12,9 +16,15 @@ import Loading from "../Loading";
 
 const Prompts = ({ infoBox, setState }) => {
   const [cloudstatus, setCloudStatus] = useState(true);
-  const [cloudtype, setCloudType] = useState("");
+  const [promptstatus, setpromptstatus] = useState(false);
+  const [cloudtype, setCloudType] = useState(" ");
   const [promptslist, setPromptsList] = useState("");
+  const [inputMessage, setInputMessage] = useState("");
   //   const { setState } = useChatContext();
+
+  console.log("cloudstatus: ", cloudstatus);
+  console.log("cloudtype: ", cloudtype);
+  console.log("promptstatus: ", promptstatus);
 
   useEffect(() => {
     setState((state) => ({
@@ -26,9 +36,11 @@ const Prompts = ({ infoBox, setState }) => {
   const onclickCloudtype = (type) => {
     setCloudStatus(false);
     setCloudType(type);
+    setpromptstatus(true);
   };
 
   const onclickCloudPrompts = (message) => {
+    setInputMessage(message);
     handleLoader();
     const companyName = "tvs";
     // console.log(companyName);
@@ -36,14 +48,15 @@ const Prompts = ({ infoBox, setState }) => {
     var myHeaders = new Headers();
     myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append(
-      "Access-Control-Allow-Origin",
-      "https://demo2-cloudstudio.1cloudhub.com"
-    );
+    // myHeaders.append(
+    //   "Access-Control-Allow-Origin",
+    //   "https://demo2-cloudstudio.1cloudhub.com"
+    // );
     var raw = JSON.stringify({
       event_type: "credit_check",
       user_name: "demo_user",
       schema: companyName,
+      query: inputMessage,
     });
     var requestOptions = {
       method: "POST",
@@ -52,7 +65,7 @@ const Prompts = ({ infoBox, setState }) => {
       redirect: "follow",
     };
     fetch(
-      "https://chatbot-vnew-5zs2afac.an.gateway.dev/chatbot",
+      "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
       requestOptions
     )
       .then((response) => response.text())
@@ -105,7 +118,7 @@ const Prompts = ({ infoBox, setState }) => {
           };
 
           fetch(
-            "https://chatbot-vnew-5zs2afac.an.gateway.dev/chatbot",
+            "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
             requestOptions2
           )
             .then((response) => response.text())
@@ -132,12 +145,13 @@ const Prompts = ({ infoBox, setState }) => {
                 redirect: "follow",
               };
               fetch(
-                "https://chatbot-vnew-5zs2afac.an.gateway.dev/chatbot",
+                "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
                 requestOptions3
               )
                 .then((response) => response.text())
                 .then((data2) => {
                   deleteRecord();
+
                   var limit_data = data2;
                   const total = JSON.parse(limit_data).credits;
                   const remaining = JSON.parse(limit_data).remaining_credits;
@@ -220,7 +234,7 @@ const Prompts = ({ infoBox, setState }) => {
         show={
           <InformationBox setState={setState}>
             <h1 className={styles.prompts_title}>Prompts Library</h1>
-            {cloudstatus ? (
+            {cloudstatus && (
               <>
                 {" "}
                 <button
@@ -236,7 +250,8 @@ const Prompts = ({ infoBox, setState }) => {
                   AWS
                 </button>
               </>
-            ) : (
+            )}
+            {promptstatus && (
               <>
                 {cloudtype === "gcp" ? (
                   <>

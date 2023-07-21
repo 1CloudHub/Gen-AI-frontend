@@ -99,10 +99,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       //   "Authorization",
       //   "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjkzNDFkZWRlZWUyZDE4NjliNjU3ZmE5MzAzMDAwODJmZTI2YjNkOTIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA1NDY5OTkwOTk2MzQzNTMzMjU5IiwiaGQiOiIxY2xvdWRodWIuY29tIiwiZW1haWwiOiJyYWplZXZAMWNsb3VkaHViLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiTTlSenB1NzNmelpBRGR0YWZYV2EtQSIsIm5iZiI6MTY4ODk2OTM5MiwiaWF0IjoxNjg4OTY5NjkyLCJleHAiOjE2ODg5NzMyOTIsImp0aSI6Ijc2YWFjNjdiNGQ2YjIzZmIyYzcxOTliODFiYjkxNWIyYWQzMDljOTAifQ.kG2oTEnN2YRnav5D_Ck5Evsn5Q_MO4hzhNNiZZBKZBf0V5ONNHmAoeRLu5eR6kUpZmbC2XxcahTRzxcoMjEmesvNWuBT8gWlVNJJW6mhpntD_bFi386Pnxnxae1qZV85mVpU7R8YPzSu9zeRCsKXr0Qa7nrqDuHJVYUTqaos3yiHUHKrvQkIl9-05CmI1dRbKhz1d2dIna4Vh7UiI9_FnNdFmyZXRFjYXgA2jVdCtW7puF5sSl64uaUkiTDDyKFI2CziB95ECqJ9BSL0IjqUq1zmpl66cg0ZQLYKG9kgRH4UwONkt0zTboucfvqeaqnKtmLJou7mZbqfgKfWuWVcSw"
       // );
-      myHeaders.append(
-        "Access-Control-Allow-Origin",
-        "https://demo2-cloudstudio.1cloudhub.com"
-      );
+      myHeaders.append("Access-Control-Allow-Origin", "*");
       var raw = JSON.stringify({
         event_type: "credit_check",
         user_name: "demo_user",
@@ -110,12 +107,13 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       });
       var requestOptions = {
         method: "POST",
+        // credentials: "include",
         headers: myHeaders,
         body: raw,
         redirect: "follow",
       };
       fetch(
-        "https://chatbot-vnew-5zs2afac.an.gateway.dev/chatbot",
+        "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
         requestOptions
       )
         .then((response) => response.text())
@@ -175,7 +173,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
             };
 
             fetch(
-              "https://chatbot-vnew-5zs2afac.an.gateway.dev/chatbot",
+              "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
               requestOptions2
             )
               .then((response) => response.text())
@@ -202,7 +200,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
                   redirect: "follow",
                 };
                 fetch(
-                  "https://chatbot-vnew-5zs2afac.an.gateway.dev/chatbot",
+                  "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
                   requestOptions3
                 )
                   .then((response) => response.text())
