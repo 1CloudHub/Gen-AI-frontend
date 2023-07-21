@@ -264,6 +264,15 @@
   animation-delay: 0.8s;
 }
 
+.chatbot-header-icon {
+  position: absolute;
+  cursor: pointer;
+  right: 32px;
+  color: #fff;
+  top: 30px;
+  font-size: 21px;
+}
+
 @keyframes animate {
   0%,
   100% {

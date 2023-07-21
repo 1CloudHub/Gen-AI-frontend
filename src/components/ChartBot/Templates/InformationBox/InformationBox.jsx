@@ -9,15 +9,16 @@ import { Icon } from "@iconify/react";
 const InformationBox = ({ children, setState, cloudstatus, cloudtype }) => {
   return (
     <div className={styles.informationBox}>
-      <button
+      {/* <button
         className={styles.closeMessageBox}
+       
+      > */}
+      <Icon
+        className={styles.closeMessageBox}
+        icon="carbon:close-outline"
         onClick={() => setState((state) => ({ ...state, infoBox: "" }))}
-      >
-        <Icon
-          className={styles.closeMessageBoxIcon}
-          icon="carbon:close-outline"
-        />
-      </button>
+      />
+      {/* </button> */}
       {/* <LightBulb className={styles.informationBoxLogo} /> */}
       <div className={styles.informationBoxContent}>{children}</div>
     </div>

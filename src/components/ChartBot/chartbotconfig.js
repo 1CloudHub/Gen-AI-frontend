@@ -5,6 +5,8 @@ import OptionList from "./widgets/OptionList";
 import "./chatbot.css";
 import Credits from "./MessageTemplates/Credits";
 import Prompts from "./Templates/Prompts";
+import HeaderIcon from "./Templates/Header/HeaderIcon";
+import Header from "./Templates/Header/Header";
 
 // const botName = "F.R.I.D.A.Y";
 
@@ -16,12 +18,12 @@ const config = {
       loading: true,
       terminateLoading: true,
       withAvatar: true,
+      widget: "headericon",
       // widget: "Loader"
     }),
     createChatBotMessage("How can I help you?", {
       withAvatar: true,
       delay: 400,
-      widget: "OptionList",
       loading: true,
       terminateLoading: true,
     }),
@@ -40,12 +42,7 @@ const config = {
   },
   customComponents: {
     botAvatar: (props) => <MybotAvatar {...props} />,
-    header: () => (
-      <div className="header">
-        <p className="header-text">Conversation with {botName}</p>
-        {/* <FaHistory className='history-icon'/> */}
-      </div>
-    ),
+    header: (props) => <Header {...props} />,
   },
   widgets: [
     {
@@ -57,6 +54,11 @@ const config = {
       widgetName: "messageParser",
       widgetFunc: (props) => <Prompts {...props} />,
       mapStateToProps: ["gist", "infoBox"],
+    },
+    {
+      widgetName: "headericon",
+      widgetFunc: (props) => <HeaderIcon {...props} />,
+      mapStateToProps: ["messages"],
     },
   ],
 };

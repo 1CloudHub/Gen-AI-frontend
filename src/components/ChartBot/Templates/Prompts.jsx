@@ -60,6 +60,7 @@ const Prompts = ({ infoBox, setState }) => {
   };
 
   const onclickCloudPrompts = (message) => {
+    setState((state) => ({ ...state, infoBox: "" }));
     handleLoader();
     const companyName = "tvs";
     //limit
@@ -88,12 +89,8 @@ const Prompts = ({ infoBox, setState }) => {
       .then((response) => response.text())
       .then((data) => {
         var data_count = data;
-        console.log(data_count);
         const total = JSON.parse(data_count).credits;
         const remaining = JSON.parse(data_count).remaining_credits;
-        console.log(total);
-        console.log(remaining);
-
         if (remaining <= 0) {
           deleteRecord();
 
@@ -141,7 +138,6 @@ const Prompts = ({ infoBox, setState }) => {
             .then((response) => response.text())
             .then((result) => {
               var chatbot_message = JSON.parse(result).chat;
-              console.log(chatbot_message);
               var myHeaders3 = new Headers();
               myHeaders3.append(
                 "x-api-key",
