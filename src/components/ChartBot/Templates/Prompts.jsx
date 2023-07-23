@@ -14,6 +14,10 @@ import Loading from "../Loading";
 const Prompts = ({ infoBox, setState }) => {
   const [cloudstatus, setCloudStatus] = useState(true);
   const [promptstatus, setpromptstatus] = useState(false);
+  const [category,setCategory]=useState(false);
+  const[cloudname,setcloudname]=useState();
+  const[customername,setcustomername]=useState();
+  const[categoryname,setCategoryname]=useState();
   const [cloudtype, setCloudType] = useState("");
   const [promptslist, setPromptsList] = useState("");
   const [loaderstatus, setLoaderStatus] = useState(false);
@@ -27,15 +31,59 @@ const Prompts = ({ infoBox, setState }) => {
   }, [setState]);
 
   const onclickCloudtype = (type) => {
-    setLoaderStatus(true);
-    const companyName = "tvs";
+    console.log(type)
+    setcloudname(type)
+    // setLoaderStatus(true);
+    setCategory(true)
+    setCloudStatus(false);
+    
+    // const companyName = "tvs";
+    // var myHeaders = new Headers();
+    // myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
+    // myHeaders.append("Content-Type", "application/json");
+    // var raw = JSON.stringify({
+    //   event_type: "prompts",
+    //   schema: companyName,
+    //   cloud: type,
+    // });
+    // var requestOptions = {
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: "follow",
+    // };
+    // fetch(
+    //   "https://chatbot-gcp-v2-5zs2afac.an.gateway.dev/chatbot/",
+    //   requestOptions
+    // )
+    //   .then((response) => response.text())
+    //   .then((result) => {
+    //     var data = JSON.parse(result);
+    //     setCloudStatus(false);
+    //     setCloudType(type);
+    //     // setpromptstatus(true);
+    //     setPromptsList(data);
+    //     setCategory(true)
+    //     setLoaderStatus(false);
+    //   })
+    //   .catch((error) => setLoaderStatus(false));
+  };
+  const onclickCategory =(choice,companyName)=>{
+    console.log(choice)
+    console.log(cloudname)
+    setCategory(false);
+    setcustomername(cloudname)
+    // setpromptstatus(true);
+    setLoaderStatus(false);
+    // const companyName = "tvs";
     var myHeaders = new Headers();
     myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({
       event_type: "prompts",
       schema: companyName,
-      cloud: type,
+      cloud: cloudname,
+      type:choice,
     });
     var requestOptions = {
       method: "POST",
@@ -49,20 +97,29 @@ const Prompts = ({ infoBox, setState }) => {
     )
       .then((response) => response.text())
       .then((result) => {
+        console.log(result)
         var data = JSON.parse(result);
-        setCloudStatus(false);
-        setCloudType(type);
-        setpromptstatus(true);
+        console.log(data)
         setPromptsList(data);
+        setCloudStatus(false);
+        setCloudType(choice);
+        setpromptstatus(true);
         setLoaderStatus(false);
       })
       .catch((error) => setLoaderStatus(false));
-  };
+
+  }
+ 
+  useEffect(() => {
+    console.log("promptslist: ", promptslist);
+  }, [promptslist]);
+  
+
 
   const onclickCloudPrompts = (message) => {
     setState((state) => ({ ...state, infoBox: "" }));
     handleLoader();
-    const companyName = "tvs";
+    // const companyName = "tvs";
     //limit
     var myHeaders = new Headers();
     myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
@@ -74,7 +131,7 @@ const Prompts = ({ infoBox, setState }) => {
     var raw = JSON.stringify({
       event_type: "credit_check",
       user_name: "demo_user",
-      schema: companyName,
+      schema: customername,
     });
     var requestOptions = {
       method: "POST",
@@ -148,7 +205,7 @@ const Prompts = ({ infoBox, setState }) => {
               var raw3 = JSON.stringify({
                 event_type: "credit_check",
                 user_name: "demo_user",
-                schema: companyName,
+                schema: customername,
               });
 
               var requestOptions3 = {
@@ -252,12 +309,60 @@ const Prompts = ({ infoBox, setState }) => {
                 <>
                   <button
                     className={styles.button_6}
-                    onClick={() => onclickCloudtype("gcp")}
+                    onClick={() => onclickCloudtype("gcp","tvs")}
                   >
                     GCP
                   </button>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCloudtype("aws", "fivestar")}
+                  >
+                    AWS
+                  </button>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCloudtype("azure","cmacgm_azure")}
+                  >
+                    Azure
+                  </button>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCloudtype("oci","gmmco")}
+                  >
+                    OCI
+                  </button>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCloudtype("multi-cloud","cmacgm")}
+                  >
+                    Multicloud
+                  </button>
                 </>
               )}
+              {
+                category && (
+                  <>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCategory("spend")}
+                  >
+                    Spend
+                  </button>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCategory("recommendation")}
+                  >
+                    Recommendation
+                  </button>
+                  <button
+                    className={styles.button_6}
+                    onClick={() => onclickCategory("budget")}
+                  >
+                    Budget
+                  </button>
+                  </>
+                )
+              }
               {promptstatus && (
                 <>
                   {promptslist.map((data) => (
