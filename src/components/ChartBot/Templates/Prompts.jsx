@@ -30,9 +30,10 @@ const Prompts = ({ infoBox, setState }) => {
     }));
   }, [setState]);
 
-  const onclickCloudtype = (type) => {
-    console.log(type)
+  const onclickCloudtype = (type,companyName) => {
+
     setcloudname(type)
+    setcustomername(companyName)
     // setLoaderStatus(true);
     setCategory(true)
     setCloudStatus(false);
@@ -68,11 +69,10 @@ const Prompts = ({ infoBox, setState }) => {
     //   })
     //   .catch((error) => setLoaderStatus(false));
   };
-  const onclickCategory =(choice,companyName)=>{
-    console.log(choice)
-    console.log(cloudname)
+  const onclickCategory =(choice)=>{
+ 
     setCategory(false);
-    setcustomername(cloudname)
+    // 
     // setpromptstatus(true);
     setLoaderStatus(false);
     // const companyName = "tvs";
@@ -81,7 +81,7 @@ const Prompts = ({ infoBox, setState }) => {
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({
       event_type: "prompts",
-      schema: companyName,
+      schema: customername,
       cloud: cloudname,
       type:choice,
     });
@@ -110,28 +110,28 @@ const Prompts = ({ infoBox, setState }) => {
 
   }
  
-  useEffect(() => {
-    console.log("promptslist: ", promptslist);
-  }, [promptslist]);
+ 
   
 
 
   const onclickCloudPrompts = (message) => {
     setState((state) => ({ ...state, infoBox: "" }));
     handleLoader();
-    // const companyName = "tvs";
+    //  const companyName = "tvs";
     //limit
     var myHeaders = new Headers();
+ 
     myHeaders.append("X-API-Key", "AIzaSyCeySsUPu30lQw3sHUZ3ugMDuTyehZy3q0");
     myHeaders.append("Content-Type", "application/json");
     // myHeaders.append(
     //   "Access-Control-Allow-Origin",
     //   "https://demo2-cloudstudio.1cloudhub.com"
     // );
+    myHeaders.append("Access-Control-Allow-Origin", "*");
     var raw = JSON.stringify({
       event_type: "credit_check",
       user_name: "demo_user",
-      schema: customername,
+      schema:customername ,
     });
     var requestOptions = {
       method: "POST",
@@ -172,7 +172,7 @@ const Prompts = ({ infoBox, setState }) => {
           var raw2 = JSON.stringify({
             event_type: "chat",
             user_name: "demo_user",
-            schema: "tvs",
+            schema:customername,
             date_time: `${new Date().getFullYear()}-${
               new Date().getMonth() + 1
             }-${new Date().getDate()}`,
